@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      main section,
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        color: white;
+        font-size: 2rem;
+      }
+      header {
+        background-color: rgb(23, 103, 132);
+      }
+      main section:nth-child(1) {
+        background: rgb(205, 67, 67);
+      }
+      main section:nth-child(2) {
+        background: rgb(141, 228, 97);
+      }
+      main section:nth-child(3) {
+        background: rgb(102, 77, 211);
+      }
+      main section:nth-child(4) {
+        background: rgb(227, 221, 103);
+      }
+
+      .navbar {
+        position: fixed;
+        width: 100%;
+        transition: background-color 300ms;
+      }
+
+      .navbar.active {
+        background-color: white;
+      }
+
+      .navbar.active a {
+        color: rgb(23, 103, 132);
+      }
+
+      .navbar a {
+        color: white;
+        text-decoration: none;
+        transition: color 300ms;
+      }
+
+      .navbar__container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: auto;
+        max-width: 1200px;
+        width: 80%;
+        height: 64px;
+      }
+
+      .navbar__links {
+        display: inline-flex;
+        list-style-type: none;
+      }
+
+      .navbar__links li {
+        margin-left: 1rem;
+      }
+      section {
+        opacity: 0;
+        transition: 500ms;
+        transform: translateY(80px);
+      }
+      section.active {
+        opacity: 1;
+        transform: none;
+      }
+    </style>
+  </head>
+  <body>
+    <nav id="navbar" class="navbar">
+      <article class="navbar__container">
+        <a class="navbar__logo" href="#">LOGO</a>
+        <ul class="navbar__links">
+          <li><a href="#section01">section 01</a></li>
+          <li><a href="#section02">section 02</a></li>
+          <li><a href="#section03">section 03</a></li>
+          <li><a href="#section04">section 04</a></li>
+        </ul>
+      </article>
+    </nav>
+    <header>HEADER</header>
+    <main>
+      <section id="section01">section 01</section>
+      <section id="section02">section 02</section>
+      <section id="section03">section 03</section>
+      <section id="section04">section 04</section>
+    </main>
+
+    <script>
+      var navbar = document.getElementById('navbar');
+      var sections = document.querySelectorAll('section');
+
+      window.onscroll = function () {
+        var windowScrollHeight = document.documentElement.scrollTop; // 滑軸目前的位子
+        var windowClientHeight = document.documentElement.clientHeight; // 螢幕目前的高度
+
+        // 100 可以改為 windowClientHeight
+        if (windowScrollHeight > windowClientHeight) {
+          navbar.classList.add('active');
+        } else {
+          navbar.classList.remove('active');
+        }
+
+        // element.offsetTop = 目前元素在畫面上的定位
+        sections.forEach(function (element) {
+          if (
+            element.offsetTop - windowClientHeight <=
+            windowScrollHeight - windowClientHeight / 2
+          ) {
+            element.classList.add('active');
+          } else {
+            element.classList.remove('active');
+          }
+        });
+      };
+    </script>
+  </body>
+</html>
